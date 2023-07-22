@@ -20,8 +20,8 @@ public class IdempotentTokenHandler implements IdempotentHandler {
     }
 
     @Override
-    public void exceptionProcessing() {
-        IdempotentHandler.super.exceptionProcessing();
+    public void exceptionProcessing(Throwable e) {
+        IdempotentHandler.super.exceptionProcessing(e);
     }
 
     @Override

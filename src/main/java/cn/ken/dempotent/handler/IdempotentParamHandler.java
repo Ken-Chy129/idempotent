@@ -10,6 +10,7 @@ import cn.ken.dempotent.exceptions.KeyGenerateException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -56,8 +57,8 @@ public class IdempotentParamHandler implements IdempotentHandler {
     }
 
     @Override
-    public void exceptionProcessing() {
-        IdempotentHandler.super.exceptionProcessing();
+    public void exceptionProcessing(Throwable e) {
+        System.out.println(e.getMessage());
     }
 
     @Override

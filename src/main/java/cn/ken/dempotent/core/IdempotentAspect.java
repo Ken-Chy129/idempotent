@@ -33,7 +33,7 @@ public class IdempotentAspect {
             result = joinPoint.proceed();
             idempotentHandler.postProcessing();
         } catch (Throwable e) {
-            idempotentHandler.exceptionProcessing();
+            idempotentHandler.exceptionProcessing(e);
         } finally {
             IdempotentContext.clean();
         }

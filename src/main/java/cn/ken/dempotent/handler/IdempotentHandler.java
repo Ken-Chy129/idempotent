@@ -23,7 +23,7 @@ public interface IdempotentHandler {
     /**
      * 异常流程处理
      */
-    default void exceptionProcessing() {
+    default void exceptionProcessing(Throwable e) {
 
     }
 
