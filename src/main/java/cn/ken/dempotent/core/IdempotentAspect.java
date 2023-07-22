@@ -1,6 +1,7 @@
 package cn.ken.dempotent.core;
 
 import cn.ken.dempotent.annotations.Idempotent;
+import cn.ken.dempotent.handler.IdempotentHandler;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

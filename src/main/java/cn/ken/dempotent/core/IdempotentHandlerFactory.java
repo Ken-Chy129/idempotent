@@ -1,6 +1,9 @@
 package cn.ken.dempotent.core;
 
 import cn.ken.dempotent.enums.IdempotentTypeEnum;
+import cn.ken.dempotent.handler.IdempotentHandler;
+import cn.ken.dempotent.handler.IdempotentParamHandler;
+import cn.ken.dempotent.handler.IdempotentTokenHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
