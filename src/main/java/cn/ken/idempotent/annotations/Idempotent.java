@@ -1,6 +1,6 @@
-package cn.ken.dempotent.annotations;
+package cn.ken.idempotent.annotations;
 
-import cn.ken.dempotent.enums.IdempotentTypeEnum;
+import cn.ken.idempotent.enums.IdempotentTypeEnum;
 
 import java.lang.annotation.*;
 

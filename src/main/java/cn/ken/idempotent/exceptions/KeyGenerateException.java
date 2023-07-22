@@ -1,4 +1,4 @@
-package cn.ken.dempotent.exceptions;
+package cn.ken.idempotent.exceptions;
 
 /**
  * <pre>

@@ -1,4 +1,4 @@
-package cn.ken.dempotent.enums;
+package cn.ken.idempotent.enums;
 
 /**
  * <pre>

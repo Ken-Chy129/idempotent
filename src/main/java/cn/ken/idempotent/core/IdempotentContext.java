@@ -1,8 +1,6 @@
-package cn.ken.dempotent.core;
+package cn.ken.idempotent.core;
 
 import org.redisson.api.RLock;
-
-import java.util.Map;
 
 /**
  * <pre>
