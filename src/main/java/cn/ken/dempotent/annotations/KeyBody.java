@@ -1,4 +1,4 @@
-package cn.ken.dempotent.annotation;
+package cn.ken.dempotent.annotations;
 
 import java.lang.annotation.*;
 

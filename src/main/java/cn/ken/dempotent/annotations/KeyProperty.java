@@ -1,4 +1,4 @@
-package cn.ken.dempotent.annotation;
+package cn.ken.dempotent.annotations;
 
 import java.lang.annotation.*;
 
@@ -8,11 +8,10 @@ import java.lang.annotation.*;
  * </pre>
  *
  * @author <a href="https://github.com/Ken-Chy129">Ken-Chy129</a>
- * @since 2023/7/22 22:54
+ * @since 2023/7/22 22:57
  */
-@Target(ElementType.PARAMETER)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface KeyParam {
-    
+public @interface KeyProperty {
 }

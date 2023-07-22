@@ -1,20 +1,12 @@
 package cn.ken.dempotent.core;
 
-import cn.ken.dempotent.annotation.Idempotent;
-import cn.ken.dempotent.annotation.KeyBody;
-import cn.ken.dempotent.annotation.KeyParam;
-import cn.ken.dempotent.annotation.KeyProperty;
+import cn.ken.dempotent.annotations.Idempotent;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 
 /**
  * <pre>
@@ -27,7 +19,7 @@ import java.util.ArrayList;
 @Aspect
 public class IdempotentAspect {
 
-    @Around("@annotation(cn.ken.dempotent.annotation.Idempotent)")
+    @Around("@annotation(cn.ken.dempotent.annotations.Idempotent)")
     public Object idempotentHandler(ProceedingJoinPoint joinPoint) throws Throwable {
         // 根据注解参数获取处理器实例
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

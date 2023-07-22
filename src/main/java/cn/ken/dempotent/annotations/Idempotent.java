@@ -1,6 +1,5 @@
-package cn.ken.dempotent.annotation;
+package cn.ken.dempotent.annotations;
 
-import cn.ken.dempotent.core.KeyGenerateStrategy;
 import cn.ken.dempotent.enums.IdempotentTypeEnum;
 
 import java.lang.annotation.*;
@@ -13,7 +12,7 @@ import java.lang.annotation.*;
  * @author <a href="https://github.com/Ken-Chy129">Ken-Chy129</a>
  * @since 2023/7/22 16:15
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Idempotent {

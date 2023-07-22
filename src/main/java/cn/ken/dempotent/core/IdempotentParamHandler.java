@@ -1,9 +1,9 @@
 package cn.ken.dempotent.core;
 
-import cn.ken.dempotent.annotation.Idempotent;
-import cn.ken.dempotent.annotation.KeyBody;
-import cn.ken.dempotent.annotation.KeyParam;
-import cn.ken.dempotent.annotation.KeyProperty;
+import cn.ken.dempotent.annotations.Idempotent;
+import cn.ken.dempotent.annotations.KeyBody;
+import cn.ken.dempotent.annotations.KeyParam;
+import cn.ken.dempotent.annotations.KeyProperty;
 import cn.ken.dempotent.exceptions.IdempotentException;
 import cn.ken.dempotent.exceptions.KeyGenerateException;
 import org.aspectj.lang.ProceedingJoinPoint;

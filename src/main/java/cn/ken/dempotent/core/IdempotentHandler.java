@@ -1,6 +1,5 @@
 package cn.ken.dempotent.core;
 
-import cn.ken.dempotent.annotation.Idempotent;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.lang.reflect.Method;
