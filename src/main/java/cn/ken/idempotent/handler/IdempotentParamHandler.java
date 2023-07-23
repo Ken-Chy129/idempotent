@@ -5,7 +5,6 @@ import cn.ken.idempotent.annotations.KeyBody;
 import cn.ken.idempotent.annotations.KeyParam;
 import cn.ken.idempotent.annotations.KeyProperty;
 import cn.ken.idempotent.core.IdempotentContext;
-import cn.ken.idempotent.exceptions.IdempotentException;
 import cn.ken.idempotent.exceptions.KeyGenerateException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.redisson.api.RLock;
@@ -24,7 +23,7 @@ import java.lang.reflect.Parameter;
  * @since 2023/7/22 20:53
  */
 public class IdempotentParamHandler implements IdempotentHandler {
-    
+
     private final RedissonClient redissonClient;
 
     private final static String LOCK = "lock:param:";
@@ -45,14 +44,14 @@ public class IdempotentParamHandler implements IdempotentHandler {
             throw new KeyGenerateException();
         }
         RLock lock = redissonClient.getLock(LOCK + key);
-        if (annotation.waitFor()) {
-            lock.lock();
-        } else {
-            if (!lock.tryLock()) {
-                throw new IdempotentException(annotation.message());
-            }
+
+        if (!lock.tryLock()) {
+            // 获取不到锁，进入拒绝策略
+            annotation.rejectStrategy().reject(lock);
+            return;
         }
-        IdempotentContext.set(lock);
+        // 获取到锁，保存到当前线程上下文方便后续释放
+        IdempotentContext.setLock(lock);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class IdempotentParamHandler implements IdempotentHandler {
 
     @Override
     public void postProcessing() {
-        RLock lock = IdempotentContext.get();
+        RLock lock = IdempotentContext.getLock();
         lock.unlock();
     }
 
