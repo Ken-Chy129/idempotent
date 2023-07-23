@@ -38,9 +38,6 @@ public enum IdempotentStrategyEnum implements IdempotentStrategy {
             IdempotentStrategy customStrategy = ApplicationContextHolder.getBean(IdempotentContext.getStrategy(), IdempotentStrategy.class);
             customStrategy.reject(lock);
         }
-    }
-    
-    ;
-
+    },
     
 }
