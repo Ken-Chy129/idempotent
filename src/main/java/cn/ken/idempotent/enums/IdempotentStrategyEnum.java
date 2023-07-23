@@ -5,6 +5,8 @@ import cn.ken.idempotent.core.IdempotentContext;
 import cn.ken.idempotent.exceptions.RepeatedRequestException;
 import cn.ken.idempotent.strategy.IdempotentStrategy;
 import org.redisson.api.RLock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <pre>
@@ -19,14 +21,18 @@ public enum IdempotentStrategyEnum implements IdempotentStrategy {
     REJECTED {
         @Override
         public void reject(RLock lock) {
-            throw new RepeatedRequestException("重复请求触发幂等性拒绝策略，请求被抛弃");
+            throw new RepeatedRequestException("重复请求触发拒绝策略，请求被抛弃");
         }
     },
     
     WAIT {
+        
+        private static final Logger logger = LoggerFactory.getLogger(IdempotentStrategy.class);
+        
         @Override
         public void reject(RLock lock) {
             // todo:引入尝试等待时间
+            logger.warn("重复请求触发等待策略，将等待上一个请求完成");
             lock.lock();
             IdempotentContext.setLock(lock);
         }
