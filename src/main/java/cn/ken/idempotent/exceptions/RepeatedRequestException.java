@@ -9,4 +9,8 @@ package cn.ken.idempotent.exceptions;
  * @since 2023/7/23 10:49
  */
 public class RepeatedRequestException extends RuntimeException {
+
+    public RepeatedRequestException(String message) {
+        super(message);
+    }
 }

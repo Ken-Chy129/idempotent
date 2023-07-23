@@ -19,7 +19,7 @@ public enum IdempotentStrategyEnum implements IdempotentStrategy {
     REJECTED {
         @Override
         public void reject(RLock lock) {
-            throw new RepeatedRequestException();
+            throw new RepeatedRequestException("重复请求触发幂等性拒绝策略，请求被抛弃");
         }
     },
     

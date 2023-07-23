@@ -9,6 +9,8 @@ import cn.ken.idempotent.exceptions.KeyGenerateException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -24,6 +26,8 @@ import java.lang.reflect.Parameter;
  */
 public class IdempotentParamHandler implements IdempotentHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(IdempotentParamHandler.class);
+    
     private final RedissonClient redissonClient;
 
     private final static String LOCK = "lock:param:";
@@ -56,7 +60,7 @@ public class IdempotentParamHandler implements IdempotentHandler {
 
     @Override
     public void exceptionProcessing(Throwable e) {
-        System.out.println(e.getMessage());
+        logger.error(e.getMessage());
     }
 
     @Override
