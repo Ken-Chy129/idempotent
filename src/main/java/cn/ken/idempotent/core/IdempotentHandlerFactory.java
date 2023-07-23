@@ -15,12 +15,12 @@ import cn.ken.idempotent.handler.IdempotentTokenHandler;
  */
 public final class IdempotentHandlerFactory {
     
-    public static IdempotentHandler getIdempotentHandler(IdempotentTypeEnum type, String handlerName) {
+    public static IdempotentHandler getIdempotentHandler(IdempotentTypeEnum type) {
         IdempotentHandler result;
         switch (type) {
             case PARAM -> result = ApplicationContextHolder.getBean(IdempotentParamHandler.class);
             case TOKEN -> result = ApplicationContextHolder.getBean(IdempotentTokenHandler.class);
-            case CUSTOM -> result = ApplicationContextHolder.getBean(handlerName, IdempotentHandler.class);
+            case CUSTOM -> result = ApplicationContextHolder.getBean(IdempotentContext.getHandler(), IdempotentHandler.class);
             default -> throw new RuntimeException(String.format("幂等处理类型 [%s] 不存在", type.name()));
         }
         return result;
