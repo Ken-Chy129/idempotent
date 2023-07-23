@@ -1,5 +1,6 @@
 package cn.ken.idempotent.annotations;
 
+import cn.ken.idempotent.enums.IdempotentStrategyEnum;
 import cn.ken.idempotent.enums.IdempotentTypeEnum;
 
 import java.lang.annotation.*;
@@ -29,7 +30,10 @@ public @interface Idempotent {
     // key前缀，默认为方法名
     String keyPrefix() default "";
     
-    // 是否等待到获取锁执行
-    boolean waitFor() default false; 
+    // 重复请求处理方式，默认策略为拒绝
+    IdempotentStrategyEnum rejectStrategy() default IdempotentStrategyEnum.REJECTED;
     
+    // 自定义拒绝策略名，在拒绝策略类型为CUSTOM时使用
+    String strategyName() default "";
+
 }
