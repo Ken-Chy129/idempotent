@@ -2,10 +2,8 @@ package cn.ken.idempotent.demo;
 
 import cn.ken.idempotent.annotations.Idempotent;
 import cn.ken.idempotent.annotations.KeyBody;
-import cn.ken.idempotent.annotations.KeyParam;
 import cn.ken.idempotent.enums.IdempotentStrategyEnum;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +20,7 @@ public class TestController {
 
     @GetMapping("/test")
     @Idempotent(
-            rejectStrategy = IdempotentStrategyEnum.WAIT
+            rejectStrategy = IdempotentStrategyEnum.REJECTED
     )
     public String idempotentHttpTest(@RequestBody @KeyBody Order order) throws InterruptedException {
         System.out.println(order);

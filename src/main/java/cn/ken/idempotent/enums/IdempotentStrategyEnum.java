@@ -8,6 +8,8 @@ import org.redisson.api.RLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * <pre>
  *
@@ -33,7 +35,7 @@ public enum IdempotentStrategyEnum implements IdempotentStrategy {
         public void reject(RLock lock) {
             // todo:引入尝试等待时间
             logger.warn("重复请求触发等待策略，将等待上一个请求完成");
-            lock.lock();
+            lock.lock(10, TimeUnit.SECONDS);
             IdempotentContext.setLock(lock);
         }
     },

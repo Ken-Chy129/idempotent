@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -49,10 +50,15 @@ public class IdempotentParamHandler implements IdempotentHandler {
         }
         RLock lock = redissonClient.getLock(LOCK + key);
 
-        if (!lock.tryLock()) {
-            // 获取不到锁，进入拒绝策略
-            annotation.rejectStrategy().reject(lock);
-            return;
+        try {
+            // todo:另起线程定时更新过期时间
+            if (!lock.tryLock(-1, 15, TimeUnit.SECONDS)) {
+                // 获取不到锁，进入拒绝策略
+                annotation.rejectStrategy().reject(lock);
+                return;
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
         // 获取到锁，保存到当前线程上下文方便后续释放
         IdempotentContext.setLock(lock);
@@ -66,7 +72,9 @@ public class IdempotentParamHandler implements IdempotentHandler {
     @Override
     public void postProcessing() {
         RLock lock = IdempotentContext.getLock();
-        lock.unlock();
+        if (lock.isHeldByCurrentThread()) {
+            lock.unlock();
+        }
     }
 
     private String getParameterKey(Parameter[] parameters, Object[] args) throws IllegalAccessException {
