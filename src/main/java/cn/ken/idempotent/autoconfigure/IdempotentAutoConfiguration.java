@@ -1,5 +1,6 @@
 package cn.ken.idempotent.autoconfigure;
 
+import cn.ken.idempotent.core.ApplicationContextHolder;
 import cn.ken.idempotent.core.IdempotentAspect;
 import cn.ken.idempotent.core.IdempotentHandlerFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,10 +22,10 @@ public class IdempotentAutoConfiguration {
     public IdempotentAspect idempotentAspect() {
         return new IdempotentAspect();
     }
-    
+
     @Bean
-    public IdempotentHandlerFactory idempotentHandlerFactor() {
-        return new IdempotentHandlerFactory();
+    public ApplicationContextHolder applicationContextHolder() {
+        return new ApplicationContextHolder();
     }
     
     @Configuration
